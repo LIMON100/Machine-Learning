@@ -5,6 +5,10 @@ import numpy as np
 from scipy.linalg import eigh
 import seaborn as sns
 
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
+from sklearn.model_selection import train_test_split
+
 
 dataset = pd.read_csv('G:/Software/Machine learning/1/23. Dimension Reduction/PCA Dataset/train.csv')
 
@@ -91,3 +95,19 @@ plt.grid()
 plt.xlabel('n_components')
 plt.ylabel('Cumulative_explained_variance')
 plt.show()
+
+
+x_train , x_test , y_train , y_test = train_test_split(x , y , test_size = 0.20)
+
+lr = LogisticRegression()
+lr.fit(x_train , y_train)
+y = lr.predict(x_test)
+ac = accuracy_score(y_test , y)
+
+
+from sklearn.ensemble import RandomForestClassifier
+rf = RandomForestClassifier()
+rf.fit(x_train , y_train)
+y_rf = rf.predict(x_test)
+ac = accuracy_score(y_test , y_rf)
+print(ac*100)
