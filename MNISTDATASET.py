@@ -8,6 +8,9 @@ import seaborn as sns
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
+from xgboost import XGBClassifier
+from sklearn.svm import SVC
+
 
 
 dataset = pd.read_csv('G:/Software/Machine learning/1/23. Dimension Reduction/PCA Dataset/train.csv')
@@ -111,3 +114,33 @@ rf.fit(x_train , y_train)
 y_rf = rf.predict(x_test)
 ac = accuracy_score(y_test , y_rf)
 print(ac*100)
+
+
+
+
+'''params = {'learning_rate': 0.01,
+          'max_depth': 5, 
+          'n_estimators': 350,
+          'subsample': 0.6,}'''
+
+
+model = XGBClassifier()
+model.fit(x_train, y_train)
+y_xgb = model.predict(x_test)
+#y_pred = model.predict(d_test)
+
+ac_xgb = accuracy_score(y_test , y_xgb)
+print(ac_xgb*100)
+
+
+
+
+
+
+sv = SVC()
+sv.fit(x_train , y_train)
+
+y_pred_svm = sv.predict(x_test)
+
+ac_svr = accuracy_score(y_test , y_pred_svm)
+print(ac_svr*100)
